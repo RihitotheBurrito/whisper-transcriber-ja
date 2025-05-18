@@ -114,4 +114,4 @@ chmod +x check_environment.sh
 
 ## ライセンス
 
-[使用するライセンスを記載]
+このプロジェクトは [MIT ライセンス](LICENSE) の下で公開されています。
