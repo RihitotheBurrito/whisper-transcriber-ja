@@ -112,6 +112,14 @@ chmod +x check_environment.sh
 - 大きなモデル（large）を使用する場合は、十分なメモリ（RAM）が必要です
 - GPU を使用すると処理が大幅に高速化されます
 
+## ガイドとチュートリアル
+
+プロジェクトに関する詳細なガイドやチュートリアルは以下のファイルで提供されています：
+
+- [CUDA セットアップガイド](CUDA_SETUP.md) - NVIDIA GPU で CUDA を設定する方法
+- [GitHub 完全ガイド](GITHUB_COMPLETE_GUIDE.md) - プロジェクトの GitHub 利用に関する包括的ガイド
+- [GitHub アップロード手順](GITHUB_UPLOAD.md) - コードを GitHub にアップロードする方法
+
 ## ライセンス
 
 このプロジェクトは [MIT ライセンス](LICENSE) の下で公開されています。
