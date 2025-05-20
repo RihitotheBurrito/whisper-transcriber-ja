@@ -16,6 +16,6 @@ if ! pip list | grep -q "flask"; then
 fi
 
 # ウェブアプリを起動
-echo "ウェブアプリを起動します（localhost:8080）"
-echo "ブラウザで http://localhost:8080 を開いてください"
+echo "ウェブアプリを起動します（ブラウザが自動的に開きます）"
+echo "もしブラウザが自動で開かない場合は、http://localhost:8080 にアクセスしてください"
 python app.py 
