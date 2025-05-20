@@ -9,6 +9,7 @@
 - GPU（CUDA）サポートによる高速処理
 - バッチ処理により複数ファイルを一括で処理
 - 処理済みファイルは自動的に別フォルダに移動
+- **ウェブブラウザによる操作が可能なGUIインターフェース**
 
 ## インストール方法
 
@@ -56,6 +57,8 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ## 使用方法
 
+### コマンドライン版の実行
+
 1. `audiofile` ディレクトリに音声ファイルを配置
 
 2. スクリプトを実行:
@@ -79,6 +82,27 @@ python audio_transcribe.py --device cuda
 # 計算タイプを指定（float16 は GPU 使用時に高速）
 python audio_transcribe.py --device cuda --compute_type float16
 ```
+
+### ウェブブラウザGUI版の実行
+
+ブラウザインターフェースでの操作を希望する場合は、以下のコマンドを実行します：
+
+```bash
+# Windows の場合
+run_webapp.bat
+
+# Linux/macOS の場合
+chmod +x run_webapp.sh
+./run_webapp.sh
+```
+
+ブラウザで `http://localhost:8080` にアクセスするとウェブインターフェースが表示されます。
+
+主な機能：
+- ドラッグ＆ドロップによる音声ファイルのアップロード
+- モデルや言語などの設定をブラウザから簡単に変更
+- 文字起こし結果のダウンロード
+- ファイル管理機能（未処理/処理済みファイルの一覧表示と削除）
 
 ## 環境チェック
 
@@ -106,11 +130,14 @@ chmod +x check_environment.sh
 - `audiofile/`: 文字起こしする音声ファイルを配置
 - `output/`: 文字起こし結果のテキストファイルが保存される
 - `processed/`: 処理済みの音声ファイルが移動される
+- `templates/`: ウェブインターフェース用のHTMLテンプレート
+- `static/`: ウェブインターフェース用の静的ファイル（CSS、JS）
 
 ## 注意事項
 
 - 大きなモデル（large）を使用する場合は、十分なメモリ（RAM）が必要です
 - GPU を使用すると処理が大幅に高速化されます
+- ウェブインターフェースはデフォルトでローカルネットワークのみからアクセス可能です
 
 ## ガイドとチュートリアル
 

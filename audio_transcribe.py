@@ -27,12 +27,8 @@ def get_optimal_device():
     """最適なデバイスを検出"""
     if torch.cuda.is_available():
         return "cuda"
-    elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-        # MPS (Apple Silicon) サポートがあれば使用
-        logging.warning("MPS デバイスが検出されましたが、Whisper と互換性がない場合があります")
-        return "mps"
-    else:
-        return "cpu"
+    # MPS (Apple Silicon) はWhisperと互換性がないため使用しない
+    return "cpu"
 
 def transcribe_audio_files():
     # コマンドラインパラメータの解析
@@ -73,6 +69,12 @@ def transcribe_audio_files():
         logging.info(f"計算タイプ: {args.compute_type}")
     except Exception as e:
         logging.error(f"モデル読み込みエラー: {e}")
+        # デバイスがCPUでなければCPUにフォールバック
+        if device != "cpu":
+            logging.info(f"{device}での読み込みに失敗しました。CPUにフォールバックします。")
+            args.device = "cpu"
+            transcribe_audio_files()  # CPUで再実行
+            return
         return
 
     # 処理対象フォルダと出力フォルダを指定

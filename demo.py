@@ -59,12 +59,8 @@ def get_optimal_device():
     """最適なデバイスを検出"""
     if torch.cuda.is_available():
         return "cuda"
-    elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-        # MPS (Apple Silicon) サポートがあれば使用
-        logging.warning("MPS デバイスが検出されましたが、Whisper と互換性がない場合があります")
-        return "mps"
-    else:
-        return "cpu"
+    # MPS (Apple Silicon) はWhisperと互換性がないため使用しない
+    return "cpu"
 
 def main():
     """メイン関数"""
@@ -100,6 +96,12 @@ def main():
         logging.info(f"モデル読み込み完了（所要時間: {time.time() - start_time:.2f}秒）")
     except Exception as e:
         logging.error(f"モデル読み込みエラー: {e}")
+        # デバイスがCPUでなければCPUにフォールバック
+        if device != "cpu":
+            logging.info(f"{device}での読み込みに失敗しました。CPUにフォールバックします。")
+            args.device = "cpu"
+            main()  # CPUで再実行
+            return
         return
     
     # 文字起こしの実行
