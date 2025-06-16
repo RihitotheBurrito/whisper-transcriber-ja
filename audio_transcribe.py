@@ -69,13 +69,23 @@ def transcribe_audio_files():
         logging.info(f"計算タイプ: {args.compute_type}")
     except Exception as e:
         logging.error(f"モデル読み込みエラー: {e}")
-        # デバイスがCPUでなければCPUにフォールバック
         if device != "cpu":
             logging.info(f"{device}での読み込みに失敗しました。CPUにフォールバックします。")
-            args.device = "cpu"
-            transcribe_audio_files()  # CPUで再実行
+            try:
+                start_time = time.time()
+                model = whisper.load_model(
+                    args.model,
+                    device="cpu",
+                    download_root=os.path.join(os.path.expanduser("~"), ".cache", "whisper")
+                )
+                device = "cpu"
+                logging.info(
+                    f"{args.model}モデルをcpuデバイスで読み込みました（所要時間: {time.time() - start_time:.2f}秒）")
+            except Exception as e_cpu:
+                logging.error(f"CPUでのモデル読み込みも失敗しました: {e_cpu}")
+                return
+        else:
             return
-        return
 
     # 処理対象フォルダと出力フォルダを指定
     base_dir = os.path.dirname(os.path.abspath(__file__))

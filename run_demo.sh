@@ -20,6 +20,13 @@ if [ ! -f "demo_sample.mp3" ]; then
         echo "サンプル音声ファイルを手動で 'demo_sample.mp3' として保存してください。"
         exit 1
     fi
+
+    # ダウンロードに失敗した場合の案内
+    if [ ! -f "demo_sample.mp3" ]; then
+        echo "サンプル音声のダウンロードに失敗しました。"
+        echo "インターネット接続を確認するか、'demo_sample.mp3' を手動で配置してください。"
+        exit 1
+    fi
 fi
 
 # サンプル音声を audiofile ディレクトリにコピー
