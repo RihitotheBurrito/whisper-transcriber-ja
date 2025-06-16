@@ -2,6 +2,8 @@
 
 このアプリケーションは、OpenAI の Whisper モデルを使用して、音声ファイルから自動的にテキストを生成するツールです。日本語音声の文字起こしに最適化されています。
 
+For an English version of this document, see [README_EN.md](README_EN.md).
+
 ## 機能
 
 - 複数の音声フォーマット（MP3、WAV、M4A、FLAC、AAC、OGG）に対応
